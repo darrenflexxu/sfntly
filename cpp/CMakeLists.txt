@@ -52,6 +52,7 @@ add_library(sfntly
               ${SFNTLY_TABLE_BITMAP_FILES}
               ${SFNTLY_TABLE_CORE_FILES}
               ${SFNTLY_TABLE_TTF_FILES})
+			  
 file(GLOB_RECURSE SIMPLE_SUBSETTER src/sample/subsetter/*.h src/sample/subsetter/*.cc
                                      src/sfntly/tools/*.h src/sfntly/tools/*.cc)
 add_executable(subsetter ${SIMPLE_SUBSETTER})
@@ -69,6 +70,12 @@ add_executable(unit_test
     ${TEST_CASES} ${CHROME_SUBSETTER_LIB}
     ext/googletest/googletest/src/gtest-all.cc
     ext/googletest/googletest/src/gtest_main.cc)
+
+add_custom_command(TARGET unit_test
+                     PRE_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/ext/icu/bin/icuuc59.dll \$\(OutDir\)icuuc59.dll
+					 COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/ext/icu/bin/icudt59.dll \$\(OutDir\)icudt59.dll)
+	
 target_link_libraries(unit_test sfntly icuuc tinyxml)
   # subtly targets
 file(GLOB SUBTLY_FILES src/sample/subtly/*.h src/sample/subtly/*.cc)
