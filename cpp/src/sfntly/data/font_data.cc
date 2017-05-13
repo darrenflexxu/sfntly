@@ -28,6 +28,8 @@ int32_t FontData::Size() const {
   return std::min<int32_t>(array_->Size() - bound_offset_, bound_length_);
 }
 
+#undef max
+
 void FontData::Bound(int32_t offset, int32_t length) {
   // Inputs should not be negative.
   CHECK(offset >= 0);

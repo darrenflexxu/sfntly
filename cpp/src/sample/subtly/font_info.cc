@@ -242,10 +242,10 @@ FontSourcedInfoBuilder::ResolveCompositeGlyphs(CharacterMap* chars_to_glyph_ids,
           down_cast<GlyphTable::CompositeGlyph*>(glyph.p_);
       int32_t num_glyphs = composite_glyph->NumGlyphs();
       for (int32_t i = 0; i < num_glyphs; ++i) {
-        int32_t glyph_id = composite_glyph->GlyphIndex(i);
-        if (resolved_glyph_ids->find(GlyphId(glyph_id, -1))
+        int32_t glyph_id_tmp = composite_glyph->GlyphIndex(i);
+        if (resolved_glyph_ids->find(GlyphId(glyph_id_tmp, -1))
             == resolved_glyph_ids->end()) {
-          unresolved_glyph_ids->insert(glyph_id);
+          unresolved_glyph_ids->insert(glyph_id_tmp);
         }
       }
     }

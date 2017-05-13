@@ -166,6 +166,8 @@ void WritableFontData::CopyFrom(InputStream* is) {
   array_->CopyFrom(is);
 }
 
+#undef max
+
 CALLER_ATTACH FontData* WritableFontData::Slice(int32_t offset,
                                                 int32_t length) {
   if (offset < 0 || length < 0 ||

@@ -48,6 +48,8 @@ const int32_t kSFNTVersionMinor = 0;
 
 const int32_t kMaxTableSize = 200 * 1024 * 1024;
 
+#undef max
+
 bool IsValidHeaderRegion(int32_t data_length, int32_t offset, int32_t length) {
   return offset >= 0 && length >= 0 &&
          offset <= std::numeric_limits<int32_t>::max() - length &&
@@ -158,7 +160,7 @@ void Font::SerializeTables(FontOutputStream* fos,
     assert(table_size == record->length());
 
     int32_t filler_size = ((table_size + 3) & ~3) - table_size;
-    for (int32_t i = 0; i < filler_size; ++i) {
+    for (int32_t index = 0; index < filler_size; ++index) {
       fos->Write(static_cast<uint8_t>(0));
     }
   }
@@ -531,12 +533,12 @@ void Font::Builder::ReadHeader(ReadableFontData* fd,
        table_number++, table_offset += Offset::kTableRecordSize) {
     int32_t tag = fd->ReadULongAsInt(table_offset + Offset::kTableTag);
     int64_t checksum = fd->ReadULong(table_offset + Offset::kTableCheckSum);
-    int32_t offset = fd->ReadULongAsInt(table_offset + Offset::kTableOffset);
+    int32_t offset_tmp = fd->ReadULongAsInt(table_offset + Offset::kTableOffset);
     int32_t length = fd->ReadULongAsInt(table_offset + Offset::kTableLength);
-    if (!IsValidHeaderRegion(fd->Size(), offset, length))
+    if (!IsValidHeaderRegion(fd->Size(), offset_tmp, length))
       continue;
 
-    HeaderPtr table = new Header(tag, checksum, offset, length);
+    HeaderPtr table = new Header(tag, checksum, offset_tmp, length);
     records->insert(table);
   }
 }

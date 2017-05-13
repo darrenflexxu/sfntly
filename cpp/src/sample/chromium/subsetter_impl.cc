@@ -225,6 +225,8 @@ bool ResolveCompositeGlyphs(GlyphTable* glyph_table,
   return true;
 }
 
+#undef max
+
 bool SetupGlyfBuilders(Font::Builder* font_builder,
                        GlyphTable* glyph_table,
                        LocaTable* loca_table,

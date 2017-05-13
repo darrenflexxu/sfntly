@@ -311,6 +311,8 @@ int32_t ReadableFontData::SearchULong(int32_t start_index,
   return -1;
 }
 
+#undef max
+
 CALLER_ATTACH FontData* ReadableFontData::Slice(int32_t offset,
                                                 int32_t length) {
   if (offset < 0 || length < 0 ||

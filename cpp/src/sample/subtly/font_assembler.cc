@@ -20,6 +20,7 @@
 
 #include <set>
 #include <map>
+#include <algorithm>
 
 #include "sfntly/tag.h"
 #include "sfntly/font.h"
@@ -139,6 +140,8 @@ bool FontAssembler::AssembleCMapTable() {
   delete glyph_id_array;
   return true;
 }
+
+#undef max
 
 bool FontAssembler::AssembleGlyphAndLocaTables() {
   Ptr<LocaTable::Builder> loca_table_builder =
