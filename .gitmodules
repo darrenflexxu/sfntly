@@ -1,0 +1,6 @@
+[submodule "cpp/ext/googletest"]
+	path = cpp/ext/googletest
+	url = git@github.com:darrenflexxu/googletest.git
+[submodule "cpp/ext/icu"]
+	path = cpp/ext/icu
+	url = git@github.com:darrenflexxu/icu.git
